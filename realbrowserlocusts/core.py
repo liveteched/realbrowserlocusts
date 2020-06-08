@@ -3,7 +3,7 @@
 import time
 from selenium.webdriver.support.ui import WebDriverWait
 from locust import events
-from locust.exception import StopLocust
+#from locust.exception import StopLocust
 
 
 def wrap_for_locust(request_type, name, func, *args, **kwargs):
