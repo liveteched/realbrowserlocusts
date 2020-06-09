@@ -19,8 +19,8 @@ class RealBrowserLocust(User):
     screen_width = None
     screen_height = None
 
-    def __init__(self):
-        super(RealBrowserLocust, self).__init__()
+    def __init__(self, *args, **kwargs):
+        super(RealBrowserLocust, self).__init__(*args, **kwargs)
         if self.screen_width is None:
             raise LocustError("You must specify a screen_width "
                               "for the browser")
@@ -34,8 +34,9 @@ class ChromeLocust(RealBrowserLocust):
     """
     Provides a Chrome webdriver that logs GET's and waits to locust
     """
-    def __init__(self):
-        super(ChromeLocust, self).__init__()
+    abstract = True
+    def __init__(self, *args, **kwargs):
+        super(ChromeLocust, self).__init__(*args, **kwargs)
         options = webdriver.ChromeOptions()
         if self.proxy_server:
             _LOGGER.info('Using proxy: ' + self.proxy_server)
@@ -52,8 +53,9 @@ class HeadlessChromeLocust(RealBrowserLocust):
     """
     Provides a headless Chrome webdriver that logs GET's and waits to locust
     """
-    def __init__(self):
-        super(HeadlessChromeLocust, self).__init__()
+    abstract = True
+    def __init__(self, *args, **kwargs):
+        super(HeadlessChromeLocust, self).__init__(*args, **kwargs)
         options = webdriver.ChromeOptions()
         options.add_argument('headless')
         options.add_argument('window-size={}x{}'.format(
@@ -78,8 +80,9 @@ class FirefoxLocust(RealBrowserLocust):
     """
     Provides a Firefox webdriver that logs GET's and waits to locust
     """
-    def __init__(self):
-        super(FirefoxLocust, self).__init__()
+    abstract = True
+    def __init__(self, *args, **kwargs):
+        super(FirefoxLocust, self).__init__(*args, **kwargs)
         self.client = RealBrowserClient(
             webdriver.Firefox(),
             self.timeout,
@@ -92,8 +95,9 @@ class PhantomJSLocust(RealBrowserLocust):
     """
     Provides a PhantomJS webdriver that logs GET's and waits to locust
     """
-    def __init__(self):
-        super(PhantomJSLocust, self).__init__()
+    abstract = True
+    def __init__(self, *args, **kwargs):
+        super(PhantomJSLocust, self).__init__(*args, **kwargs)
         self.client = RealBrowserClient(
             webdriver.PhantomJS(),
             self.timeout,
